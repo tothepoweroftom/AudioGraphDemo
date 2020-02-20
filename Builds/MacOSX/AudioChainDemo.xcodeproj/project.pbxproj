@@ -211,6 +211,13 @@
 			path = System/Library/Frameworks/IOKit.framework;
 			sourceTree = SDKROOT;
 		};
+		2A386809F1DC767D08F0881B = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = BaseProcessors.cpp;
+			path = ../../Source/BaseProcessors.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		2C5AA68FBC35458E457DFA8C = {
 			isa = PBXFileReference;
 			lastKnownFileType = file.r;
@@ -393,13 +400,6 @@
 			path = "../../JuceLibraryCode/include_juce_audio_devices.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
-		A2A346E9443388C332A187ED = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.objcpp;
-			name = "include_juce_events.mm";
-			path = "../../JuceLibraryCode/include_juce_events.mm";
-			sourceTree = "SOURCE_ROOT";
-		};
 		A6790221B4F46BF7BEFCA6A1 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -414,20 +414,6 @@
 			path = "/Users/tom/Developer/JUCE/modules/juce_audio_plugin_client";
 			sourceTree = "<absolute>";
 		};
-		ACB8B281B6F59B78CC78AD1C = {
-			isa = PBXFileReference;
-			lastKnownFileType = file;
-			name = "juce_gui_basics";
-			path = "/Users/tom/Developer/JUCE/modules/juce_gui_basics";
-			sourceTree = "<absolute>";
-		};
-		B1B216829323A46117E79A02 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.objcpp;
-			name = "include_juce_cryptography.mm";
-			path = "../../JuceLibraryCode/include_juce_cryptography.mm";
-			sourceTree = "SOURCE_ROOT";
-		};
 		BC469E4BF2FE2D7449654A77 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -435,25 +421,11 @@
 			path = "/Users/tom/Developer/JUCE/modules/juce_audio_basics";
 			sourceTree = "<absolute>";
 		};
-		C044BEDE4BA6D48FB3F99048 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = AppConfig.h;
-			path = ../../JuceLibraryCode/AppConfig.h;
-			sourceTree = "SOURCE_ROOT";
-		};
 		C2E493909CEB6AF7813C8880 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
 			name = PluginProcessor.cpp;
 			path = ../../Source/PluginProcessor.cpp;
-			sourceTree = "SOURCE_ROOT";
-		};
-		C5A1475BA9C49DBF4A095D39 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = AudioGraphManager.h;
-			path = ../../Source/AudioGraphManager.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		D63DF2460BA8943E0C4C76DC = {
@@ -484,11 +456,39 @@
 			path = System/Library/Frameworks/WebKit.framework;
 			sourceTree = SDKROOT;
 		};
+		A2A346E9443388C332A187ED = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
+			name = "include_juce_events.mm";
+			path = "../../JuceLibraryCode/include_juce_events.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		ACB8B281B6F59B78CC78AD1C = {
+			isa = PBXFileReference;
+			lastKnownFileType = file;
+			name = "juce_gui_basics";
+			path = "/Users/tom/Developer/JUCE/modules/juce_gui_basics";
+			sourceTree = "<absolute>";
+		};
 		B14D3F5E47E8937903102524 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
 			name = AudioGraphManager.cpp;
 			path = ../../Source/AudioGraphManager.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
+		B1B216829323A46117E79A02 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
+			name = "include_juce_cryptography.mm";
+			path = "../../JuceLibraryCode/include_juce_cryptography.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		C044BEDE4BA6D48FB3F99048 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = AppConfig.h;
+			path = ../../JuceLibraryCode/AppConfig.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		C267E6229B6006BA2250DC72 = {
@@ -503,6 +503,13 @@
 			lastKnownFileType = sourcecode.cpp.cpp;
 			name = PluginEditor.cpp;
 			path = ../../Source/PluginEditor.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
+		C5A1475BA9C49DBF4A095D39 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = AudioGraphManager.h;
+			path = ../../Source/AudioGraphManager.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		CA146DF462927ED7A66AB434 = {
@@ -614,6 +621,7 @@
 			isa = PBXGroup;
 			children = (
 				B14D3F5E47E8937903102524,
+				2A386809F1DC767D08F0881B,
 				C5A1475BA9C49DBF4A095D39,
 				C2E493909CEB6AF7813C8880,
 				3E264968EFFE647D681967E6,

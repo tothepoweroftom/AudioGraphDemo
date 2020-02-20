@@ -14,14 +14,9 @@
 //==============================================================================
 AudioChainDemoAudioProcessor::AudioChainDemoAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-     : AudioProcessor (BusesProperties()
-                     #if ! JucePlugin_IsMidiEffect
-                      #if ! JucePlugin_IsSynth
-                       .withInput  ("Input",  AudioChannelSet::stereo(), true)
-                      #endif
-                       .withOutput ("Output", AudioChannelSet::stereo(), true)
-                     #endif
-                       )
+     : AudioProcessor (BusesProperties().withInput  ("Input",  AudioChannelSet::stereo(), true)
+                       .withOutput ("Output", AudioChannelSet::stereo(), true)),
+                        mainProcessor  (new AudioProcessorGraph())
 #endif
 {
 }
@@ -97,12 +92,20 @@ void AudioChainDemoAudioProcessor::prepareToPlay (double sampleRate, int samples
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    mainProcessor->setPlayConfigDetails (getMainBusNumInputChannels(),
+                                         getMainBusNumOutputChannels(),
+                                         sampleRate, samplesPerBlock);
+    
+    mainProcessor->prepareToPlay (sampleRate, samplesPerBlock);
+    
+    initialiseGraph();
 }
 
 void AudioChainDemoAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
+    mainProcessor->releaseResources();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -129,6 +132,33 @@ bool AudioChainDemoAudioProcessor::isBusesLayoutSupported (const BusesLayout& la
 }
 #endif
 
+void AudioChainDemoAudioProcessor::initialiseGraph()
+{
+    mainProcessor->clear();
+    
+    audioInputNode  = mainProcessor->addNode (std::make_unique<AudioGraphIOProcessor> (AudioGraphIOProcessor::audioInputNode));
+    audioOutputNode = mainProcessor->addNode (std::make_unique<AudioGraphIOProcessor> (AudioGraphIOProcessor::audioOutputNode));
+    midiInputNode   = mainProcessor->addNode (std::make_unique<AudioGraphIOProcessor> (AudioGraphIOProcessor::midiInputNode));
+    midiOutputNode  = mainProcessor->addNode (std::make_unique<AudioGraphIOProcessor> (AudioGraphIOProcessor::midiOutputNode));
+    
+    connectAudioNodes();
+    connectMidiNodes();
+}
+
+void AudioChainDemoAudioProcessor::connectAudioNodes()
+{
+    for (int channel = 0; channel < 2; ++channel)
+        mainProcessor->addConnection ({ { audioInputNode->nodeID,  channel },
+            { audioOutputNode->nodeID, channel } });
+}
+
+void AudioChainDemoAudioProcessor::connectMidiNodes()
+{
+    mainProcessor->addConnection ({ { midiInputNode->nodeID,  AudioProcessorGraph::midiChannelIndex },
+        { midiOutputNode->nodeID, AudioProcessorGraph::midiChannelIndex } });
+}
+
+
 void AudioChainDemoAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
     ScopedNoDenormals noDenormals;
@@ -150,12 +180,13 @@ void AudioChainDemoAudioProcessor::processBlock (AudioBuffer<float>& buffer, Mid
     // the samples and the outer loop is handling the channels.
     // Alternatively, you can process the samples with the channels
     // interleaved by keeping the same state.
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto* channelData = buffer.getWritePointer (channel);
 
-        // ..do something to the data...
-    }
+    
+//    updateGraph();
+    
+    
+    //Here we pass the process buffer to the mainProcessor which is our graph
+    mainProcessor->processBlock (buffer, midiMessages);
 }
 
 //==============================================================================

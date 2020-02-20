@@ -5,6 +5,8 @@
     <GROUP id="{A758FDF7-CCD6-4D0B-1AF3-3270EDD1BE7E}" name="Source">
       <FILE id="ckbazS" name="AudioGraphManager.cpp" compile="1" resource="0"
             file="Source/AudioGraphManager.cpp"/>
+      <FILE id="hnR9tN" name="BaseProcessors.cpp" compile="0" resource="0"
+            file="Source/BaseProcessors.cpp"/>
       <FILE id="uh5L36" name="AudioGraphManager.h" compile="0" resource="0"
             file="Source/AudioGraphManager.h"/>
       <FILE id="UHWftW" name="PluginProcessor.cpp" compile="1" resource="0"

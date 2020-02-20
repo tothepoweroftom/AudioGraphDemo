@@ -11,7 +11,6 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "AudioGraphManager.h"
 
 //==============================================================================
 /**
@@ -19,6 +18,8 @@
 class AudioChainDemoAudioProcessor  : public AudioProcessor
 {
 public:
+    using AudioGraphIOProcessor = AudioProcessorGraph::AudioGraphIOProcessor;
+    using Node = AudioProcessorGraph::Node;
     //==============================================================================
     AudioChainDemoAudioProcessor();
     ~AudioChainDemoAudioProcessor();
@@ -56,7 +57,20 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    void initialiseGraph();
+    void connectAudioNodes();
+    void connectMidiNodes();
 private:
+    //...
+    std::unique_ptr<AudioProcessorGraph> mainProcessor;
+    
+    //...
+    
+    Node::Ptr audioInputNode;
+    Node::Ptr audioOutputNode;
+    Node::Ptr midiInputNode;
+    Node::Ptr midiOutputNode;
+    //...
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioChainDemoAudioProcessor)
 };
